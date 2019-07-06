@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Presto Loyalty</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="phone_number">Phone Number (Optional)</string>
+    <string name="submit">Submit</string>
+    <string name="name_msg_error">Please enter a correct name</string>
+    <string name="email_msg_error">Please enter a correct email address</string>
+    <string name="phone_msg_error">Please enter a correct phone number</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="submission_error">Error when submitting, please try again later</string>
+    <string name="submission_success">Submission successful</string>
+
+</resources>
