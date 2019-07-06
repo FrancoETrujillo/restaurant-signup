@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -14,7 +16,7 @@ import com.mvatech.ftrujillo.prestoloyalty.data.models.FormValidationStatus;
 import com.mvatech.ftrujillo.prestoloyalty.data.models.TransactionStatus;
 import com.mvatech.ftrujillo.prestoloyalty.loyalty.viewmodel.LoyaltyActivityViewModel;
 
-public class LoyaltyActivity extends AppCompatActivity {
+public class LoyaltySignUpActivity extends AppCompatActivity {
     ActivityLoyaltyBinding bindings;
     LoyaltyActivityViewModel viewModel;
 
@@ -42,12 +44,19 @@ public class LoyaltyActivity extends AppCompatActivity {
                 mateToast(getString(R.string.submission_error));
                 break;
             case SUCCESS:
-                mateToast(getString(R.string.submission_success));
+                onSubmissionSuccess();
                 break;
             case LOADING:
+                bindings.groupLoading.setVisibility(View.VISIBLE);
                 mateToast("Submitting");
                 break;
         }
+    }
+
+    private void onSubmissionSuccess() {
+        bindings.groupLoading.setVisibility(View.GONE);
+        mateToast(getString(R.string.submission_success));
+        finish();
     }
 
 

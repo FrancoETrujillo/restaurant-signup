@@ -11,5 +11,7 @@
     <string name="subscribe">Subscribe</string>
     <string name="submission_error">Error when submitting, please try again later</string>
     <string name="submission_success">Submission successful</string>
+    <string name="join_message">JOIN OUR LOYALTY PROGRAM</string>
+    <string name="loading">Loading</string>
 
 </resources>

@@ -17,7 +17,6 @@ public class Validator {
         boolean isValid = false;
         if(phone != null){
             isValid = PhoneNumberUtils.isGlobalPhoneNumber(phone);
-            //check only numbers if not GlobalNumber
             isValid = isValid || phone.matches("\\d+");
             isValid = phone.length() >= 7 && isValid;
             isValid = isValid || phone.length() == 0;
