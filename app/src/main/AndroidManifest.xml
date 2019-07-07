@@ -10,8 +10,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".loyalty.ui.LoyaltySignUpActivity"></activity>
-        <activity android:name=".landing.ui.LandingActivity">
+        <activity android:name=".loyalty.ui.LoyaltySignUpActivity"
+            android:screenOrientation="portrait"
+            ></activity>
+        <activity android:name=".landing.ui.LandingActivity"
+            android:screenOrientation="portrait"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
