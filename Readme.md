@@ -16,6 +16,7 @@ This is a code challenge to develop a sign-up feature for with the following req
 The app consists only of two Screens:
 Landing Screen -> Invites the user to sign up
 LoyaltySignUp Screen ->  Handles the sign-up process, the validation, and sending of the information.
+
 <img src="readme/app_flow.png" width = 400>
 
 The app is implemented using the MVVM pattern to keep the separation of concerns, improve testability, avoid memory leaks and exceptions caused by the activity/fragment lifecycle changes. 
