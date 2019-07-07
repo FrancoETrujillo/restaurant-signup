@@ -1,20 +1,20 @@
 package com.mvatech.ftrujillo.prestoloyalty.loyalty.ui;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-
 import com.mvatech.ftrujillo.prestoloyalty.R;
-import com.mvatech.ftrujillo.prestoloyalty.databinding.ActivityLoyaltyBinding;
 import com.mvatech.ftrujillo.prestoloyalty.data.models.FormValidationStatus;
 import com.mvatech.ftrujillo.prestoloyalty.data.models.TransactionStatus;
+import com.mvatech.ftrujillo.prestoloyalty.databinding.ActivityLoyaltyBinding;
 import com.mvatech.ftrujillo.prestoloyalty.loyalty.viewmodel.LoyaltyActivityViewModel;
+
+import static com.mvatech.ftrujillo.prestoloyalty.utils.UiUtilities.extractText;
 
 public class LoyaltySignUpActivity extends AppCompatActivity {
     ActivityLoyaltyBinding bindings;
@@ -39,7 +39,7 @@ public class LoyaltySignUpActivity extends AppCompatActivity {
     }
 
     private void submissionStatusObserver(TransactionStatus transactionStatus) {
-        switch (transactionStatus){
+        switch (transactionStatus) {
             case ERROR:
                 mateToast(getString(R.string.submission_error));
                 break;
@@ -61,35 +61,26 @@ public class LoyaltySignUpActivity extends AppCompatActivity {
 
 
     private void formStatusObserver(FormValidationStatus formStatus) {
-        if(formStatus != null){
-            bindings.firstNameLayout.setError(formStatus.isFirstNameValid()?
-                    "":getString(R.string.name_msg_error));
-            bindings.lastNameLayout.setError(formStatus.isLastNameValid()?
-                    "":getString(R.string.name_msg_error));
-            bindings.emailAddressLayout.setError(formStatus.isEmailValid()?
-                    "":getString(R.string.email_msg_error));
-            bindings.phoneNumberLayout.setError(formStatus.isPhoneValid()?
-                    "":getString(R.string.phone_msg_error));
+        if (formStatus != null) {
+            bindings.firstNameLayout.setError(formStatus.isFirstNameValid() ?
+                    "" : getString(R.string.name_msg_error));
+            bindings.lastNameLayout.setError(formStatus.isLastNameValid() ?
+                    "" : getString(R.string.name_msg_error));
+            bindings.emailAddressLayout.setError(formStatus.isEmailValid() ?
+                    "" : getString(R.string.email_msg_error));
+            bindings.phoneNumberLayout.setError(formStatus.isPhoneValid() ?
+                    "" : getString(R.string.phone_msg_error));
         }
     }
 
 
-    private void onSubmitClick(){
+    private void onSubmitClick() {
         String firstName = extractText(bindings.firstName);
         String lastName = extractText(bindings.lastName);
         String email = extractText(bindings.emailAddress);
         String phone = extractText(bindings.phoneNumber);
 
         viewModel.submit(firstName, lastName, email, phone);
-    }
-
-    private String extractText(EditText editText){
-        if(editText != null ){
-            if(editText.getText() != null){
-                return editText.getText().toString();
-            }
-        }
-        return "";
     }
 
     private void mateToast(String message) {

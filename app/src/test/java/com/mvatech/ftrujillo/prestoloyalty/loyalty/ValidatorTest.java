@@ -13,14 +13,15 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(RobolectricTestRunner.class)
-@Config(sdk = {JELLY_BEAN_MR1 })
+@Config(sdk = {JELLY_BEAN_MR1})
 public class ValidatorTest {
     private Validator validator;
-    
+
     @Before
-    public void init(){
+    public void init() {
         validator = new Validator();
     }
+
     //email tests
     @Test
     public void whenValidatingEmailAndInputCorrectReturnTrue() {
@@ -43,12 +44,12 @@ public class ValidatorTest {
     }
 
     @Test
-    public void whenValidatingEmailAndInputIsEmptyReturnFalse(){
+    public void whenValidatingEmailAndInputIsEmptyReturnFalse() {
         assertFalse(validator.isEmailValid(""));
     }
 
     @Test
-    public void whenValidatingEmailAndInputIsNullReturnFalse(){
+    public void whenValidatingEmailAndInputIsNullReturnFalse() {
         assertFalse(validator.isEmailValid(null));
     }
 
@@ -64,7 +65,7 @@ public class ValidatorTest {
     }
 
     @Test
-    public void whenValidatingPhoneAndInputIsEmptyReturnTrue(){
+    public void whenValidatingPhoneAndInputIsEmptyReturnTrue() {
         assertTrue(validator.isPhoneValid(""));
     }
 
@@ -72,7 +73,6 @@ public class ValidatorTest {
     public void whenValidatingPhoneAndInputTooShortReturnFalse() {
         assertFalse(validator.isPhoneValid("88080"));
     }
-
 
 
     @Test

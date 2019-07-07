@@ -5,7 +5,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#009688"
+        android:background="@drawable/restaurant_1"
         android:paddingLeft="24dp"
         android:paddingTop="56dp"
         android:paddingRight="24dp">
@@ -18,21 +18,18 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            app:boxCornerRadiusBottomEnd="20dp"
-            app:boxCornerRadiusBottomStart="20dp"
-            app:boxCornerRadiusTopEnd="20dp"
-            app:boxCornerRadiusTopStart="20dp"
+            style="@style/SignUpTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline2">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/firstName"
+                style="@style/SignUpTextBoxStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/first_name"
-                android:inputType="textCapWords"
-                android:textColorHint="#FD070707" />
+                android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!--  Last Name Label -->
@@ -41,12 +38,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            style="@style/SignUpTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="@+id/firstNameLayout"
             app:layout_constraintStart_toStartOf="@+id/firstNameLayout"
             app:layout_constraintTop_toBottomOf="@+id/firstNameLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/lastName"
+                style="@style/SignUpTextBoxStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/last_name"
@@ -59,12 +58,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            style="@style/SignUpTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="@+id/lastNameLayout"
             app:layout_constraintStart_toStartOf="@+id/lastNameLayout"
             app:layout_constraintTop_toBottomOf="@+id/lastNameLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailAddress"
+                style="@style/SignUpTextBoxStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email_address"
@@ -79,12 +80,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            style="@style/SignUpTextInputLayoutStyle"
             app:layout_constraintEnd_toEndOf="@+id/emailAddressLayout"
             app:layout_constraintStart_toStartOf="@+id/emailAddressLayout"
             app:layout_constraintTop_toBottomOf="@+id/emailAddressLayout">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phoneNumber"
+                style="@style/SignUpTextBoxStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/phone_number"
@@ -93,12 +96,12 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/submitButton"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="8dp"
-            android:focusable="true"
+            style="@style/MaterialButtonStyle"
             android:padding="12dp"
             android:text="@string/submit"
             app:layout_constraintEnd_toEndOf="parent"

@@ -38,7 +38,7 @@ public class FormValidationStatus {
         this.phoneValid = phoneValid;
     }
 
-    public boolean isFormValid(){
+    public boolean isFormValid() {
         return firstNameValid && lastNameValid && emailValid && phoneValid;
     }
 

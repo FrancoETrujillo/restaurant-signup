@@ -30,6 +30,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+
 public class LoyaltyActivityViewModelTest {
 
     private LoyaltyActivityViewModel viewModel;
@@ -59,36 +60,63 @@ public class LoyaltyActivityViewModelTest {
 
     @Test
     public void whenCallSubmitAndFormIsCorrectThenViewModelSubscribes() {
+        // Set up
         stubValidator(true, true, true);
+        //Function call
         viewModel.submit("", "", "", "");
+        //Assertions
         repositoryObserver.assertSubscribed();
     }
 
     @Test
-    public void whenCallSubmitAndFormCorrectAndCompletableSubscribedThenTransactionStatusIsLoading(){
+    public void whenCallSubmitAndFormCorrectAndCompletableSubscribedThenTransactionStatusIsLoading() {
+        // Set up
         stubValidator(true, true, true);
         LiveData<TransactionStatus> submissionStatus = viewModel.getSubmissionStatus();
-        completable = Completable.create( emitter -> {}).doOnSubscribe(repositoryObserver::onSubscribe);
+        completable = Completable.create(emitter -> {
+        }).doOnSubscribe(repositoryObserver::onSubscribe);
         when(repository.submitForm(any(LoyaltySignUpForm.class))).thenReturn(completable);
-        viewModel.submit("","","","");
+        //Function call
+        viewModel.submit("", "", "", "");
+        //Assertions
         repositoryObserver.assertSubscribed();
         assertEquals(submissionStatus.getValue(), TransactionStatus.LOADING);
     }
 
     @Test
-    public void whenCallSubmitAndFormCorrectAndCompletableFinishedThenTransactionStatusIsCompleted(){
+    public void whenCallSubmitAndFormCorrectAndCompletableErrorThenTransactionStatusIsError() {
+        // Set up
+        stubValidator(true, true, true);
+        LiveData<TransactionStatus> submissionStatus = viewModel.getSubmissionStatus();
+        completable = Completable.error(new Throwable()).doOnSubscribe(repositoryObserver::onSubscribe);
+        when(repository.submitForm(any(LoyaltySignUpForm.class))).thenReturn(completable);
+        //Function call
+        viewModel.submit("", "", "", "");
+        //Assertions
+        repositoryObserver.assertSubscribed();
+        assertEquals(submissionStatus.getValue(), TransactionStatus.ERROR);
+    }
+
+    @Test
+    public void whenCallSubmitAndFormCorrectAndCompletableFinishedThenTransactionStatusIsSuccess() {
+        // Set up
         stubValidator(true, true, true);
         LiveData<TransactionStatus> submissionStatus = viewModel.getSubmissionStatus();
         when(repository.submitForm(any(LoyaltySignUpForm.class))).thenReturn(completable);
-        viewModel.submit("","","","");
+        //Function call
+        viewModel.submit("", "", "", "");
+        //Assertions
         assertEquals(submissionStatus.getValue(), TransactionStatus.SUCCESS);
     }
 
     @Test
-    public void whenCallSubmitValidationThenStatusSendCorrectValues(){
+    public void whenCallSubmitValidationThenStatusSendCorrectValues() {
+        // Set up
         stubValidator(true, false, true);
         LiveData<FormValidationStatus> status = viewModel.getFormValidationStatus();
-        viewModel.submit("", "","","");
+        //Function call
+        viewModel.submit("", "", "", "");
+        //Assertions
         assertTrue(Objects.requireNonNull(status.getValue()).isFirstNameValid());
         assertTrue(Objects.requireNonNull(status.getValue()).isLastNameValid());
         assertFalse(Objects.requireNonNull(status.getValue()).isEmailValid());
@@ -98,22 +126,31 @@ public class LoyaltyActivityViewModelTest {
 
     @Test
     public void whenCallSubmitAndNameIncorrectThenViewModelNotSubscribed() {
+        // Set up
         stubValidator(false, true, true);
+        //Function call
         viewModel.submit("", "", "", "");
+        //Assertions
         repositoryObserver.assertNotSubscribed();
     }
 
     @Test
     public void whenCallSubmitAndEmailIncorrectThenViewModelNotSubscribed() {
+        // Set up
         stubValidator(true, false, true);
+        //Function call
         viewModel.submit("", "", "", "");
+        //Assertions
         repositoryObserver.assertNotSubscribed();
     }
 
     @Test
     public void whenCallSubmitAndPhoneIncorrectThenViewModelNotSubscribed() {
+        // Set up
         stubValidator(true, true, false);
+        //Function call
         viewModel.submit("", "", "", "");
+        //Assertions
         repositoryObserver.assertNotSubscribed();
     }
 

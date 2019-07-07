@@ -16,7 +16,6 @@ import com.mvatech.ftrujillo.prestoloyalty.utils.Validator;
 
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 public class LoyaltyActivityViewModel extends ViewModel {
 
@@ -28,13 +27,14 @@ public class LoyaltyActivityViewModel extends ViewModel {
     private MutableLiveData<TransactionStatus> submissionStatus = new MutableLiveData<>();
     private Validator validator;
 
-    public LoyaltyActivityViewModel(){
+    public LoyaltyActivityViewModel() {
         repository = new LoyaltyRepositoryImpl();
         validator = new Validator();
         schedulerProvider = new ApplicationSchedulerProvider();
     }
 
-    public LoyaltyActivityViewModel(LoyaltyRepository repository, Validator validator, SchedulerProvider schedulerProvider){
+    //Simple injection used for testing
+    public LoyaltyActivityViewModel(LoyaltyRepository repository, Validator validator, SchedulerProvider schedulerProvider) {
         this.repository = repository;
         this.validator = validator;
         this.schedulerProvider = schedulerProvider;
@@ -54,23 +54,20 @@ public class LoyaltyActivityViewModel extends ViewModel {
         formValidationStatus.setValue(status);
 
         if (status.isFormValid()) {
-            // send to repository
-            Timber.d("Is valid");
-
-            Disposable requestObserver = repository.submitForm(signUpForm)
-                    .subscribeOn(schedulerProvider.io())
-                    .observeOn(schedulerProvider.mainThread())
-                    .doOnSubscribe(d -> submissionStatus.setValue(TransactionStatus.LOADING))
-                    .subscribe(
-                            () -> submissionStatus.setValue(TransactionStatus.SUCCESS),
-                            error -> submissionStatus.setValue(TransactionStatus.ERROR));
+            Disposable requestObserver =
+                    repository.submitForm(signUpForm)
+                            .subscribeOn(schedulerProvider.io())
+                            .observeOn(schedulerProvider.mainThread())
+                            .doOnSubscribe(d -> submissionStatus.setValue(TransactionStatus.LOADING))
+                            .subscribe(
+                                    () -> submissionStatus.setValue(TransactionStatus.SUCCESS),
+                                    error -> submissionStatus.setValue(TransactionStatus.ERROR));
 
             subscriptions.add(requestObserver);
         }
     }
 
     private FormValidationStatus validateForm() {
-        Timber.d("Franco %s", signUpForm);
         FormValidationStatus formStatus = new FormValidationStatus();
         formStatus.setFirstNameValid(validator.isNameValid(signUpForm.getFirstName()));
         formStatus.setLastNameValid(validator.isNameValid(signUpForm.getLastName()));
